@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.item{
+
+}
+
+.item__image{
+  max-width: 400px;
+  width: 100%;
+}
