@@ -7,11 +7,13 @@ const itemSchema = new Schema({
     description: { type: String, maxLength: 500 },
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     imgPath: { type: String },
+    lowestPrice: {type: Number, min: 0, },
 });
 
 itemSchema.virtual('url').get(function (){
     return slugify(this.name, { lower: true, replacement: '_' });
 })
+
 
 const itemModel = mongoose.model('Item', itemSchema);
 

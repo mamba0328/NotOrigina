@@ -6,12 +6,16 @@ block content
             div.col-6
                 img(src=item.imgPath onerror="if (this.src != '/images/fallback.webp') this.src = '/images/fallback.webp'" alt="item image").item__image
             div.col-6
-                h4=item.name
+                div.row
+                    h4.col=item.name
+                    a.col.text-danger(href=`/item/delete/${item._id}`) Delete item
                 p=item.description
                 div(class="btn-group mb-3" role="group" aria-label="Basic example")
                     each iteminstance in iteminstances
-                        a(href=`?size=${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
+                        a(href=`/${item.category.url}/${item.url}/?size=${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
                 if(choosenIteminstance)
                     div.row
                         h5.col-5=`${choosenIteminstance.price}$`
                         p.col-3=`In stock: ${choosenIteminstance.number_in_stock}`
+        if(error)
+            h6.text-danger(style='text-align:right')=error.msg

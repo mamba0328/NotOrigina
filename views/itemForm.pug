@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    form.col-6.mx-auto(method='POST', action='#')
+        div(class="form-group mb-2")
+            label(for="name") Item name
+            input(type="text" value=(item.name ? item.name  : '')  class="form-control" id="name" aria-describedby="name" placeholder="Enter name" name='name')
+        div(class="form-group mb-2")
+            label(for="category") Item category
+            select(class="form-select" aria-label="Default select example" id="category" name="category")
+                each category in categories
+                    option(value=category._id selected=(category._id.toString() === item.category.toString() ? 'selected' : false))=category.name
+        div(class="form-group mb-2")
+            label(for="description") Item description
+            textarea(class="form-control" value=(item.description ? item.description : '') id="description" rows="3" name="description")
+
+        button(type="submit" class="btn btn-primary") Create item
+
+        if(errors)
+            ul
+                each error in errors
+                    li.text-danger=error.msg

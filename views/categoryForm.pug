@@ -1,0 +1,16 @@
+extends layout
+
+block content
+        form.col-6.mx-auto(method='POST', action='#')
+            div(class="form-group mb-2")
+                label(for="name") Category name
+                input(type="text" value=(name ? name : '')  class="form-control" id="name" aria-describedby="name" placeholder="Enter name" name='name')
+            div(class="form-group mb-2")
+                label(for="description") Category description
+                textarea(class="form-control" value=(description ? description : '') id="description" rows="3" name="description")
+            button(type="submit" class="btn btn-primary") Create category
+
+            if(errors)
+                ul
+                    each error in errors
+                        li=error.msg

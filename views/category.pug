@@ -1,7 +1,12 @@
 extends layout
 
 block content
-    h1=title
+    div.d-flex.align-items-center.gap-3
+        h1=title
+        a.text-success(href=`/item/create?category=${category._id}`) Create new Item
+        a.text-danger(href=`/category/delete/${category._id}`) Delete
+    if(error)
+        p.text-danger=error.msg
     ul.container.pt-3.list-unstyled
         each item in categoryItems
             li.row.border-bottom.pb-2
@@ -10,3 +15,5 @@ block content
                         img(src=item.imgPath onerror="if (this.src != '/images/fallback.webp') this.src = '/images/fallback.webp'" alt="item image").item__image
                     div.col-10
                         h4.text-dark=item.name
+                        h6.text-dark=item.lowestPrice + '$'
+
