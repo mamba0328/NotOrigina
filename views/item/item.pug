@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
     div.container
@@ -8,14 +8,17 @@ block content
             div.col-6
                 div.row
                     h4.col=item.name
-                    a.col.text-danger(href=`/item/delete/${item._id}`) Delete item
+                    a.col.text-danger(href=`/${item.url}/delete`) Delete item
                 p=item.description
                 div(class="btn-group mb-3" role="group" aria-label="Basic example")
                     each iteminstance in iteminstances
-                        a(href=`/${item.category.url}/${item.url}/?size=${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
+                        a(href=`/${item.url}/?size=${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
                 if(choosenIteminstance)
                     div.row
                         h5.col-5=`${choosenIteminstance.price}$`
                         p.col-3=`In stock: ${choosenIteminstance.number_in_stock}`
+                else
+                    div.row
+                        h5.col-5=`${item.lowestPrice ? item.lowestPrice + '$' : 'Out of stock'}`
         if(error)
             h6.text-danger(style='text-align:right')=error.msg

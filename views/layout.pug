@@ -15,7 +15,7 @@ html
         ul.navbar-nav
           each category in categories
             li.nav-item
-              a.nav-link(class=`${category.name === currentCategory ? 'active' : ''}` href=`/${category.url}`)=category.name
+              a.nav-link(class=`${category._id === currentCategory ? 'active' : ''}` href=`/${category.url}`)=category.name
         a.navbar__create-category(href='/category/create')
           button.btn.btn-outline-primary +
     hr

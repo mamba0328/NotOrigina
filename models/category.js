@@ -8,7 +8,7 @@ const categorySchema = new Schema({
 })
 
 categorySchema.virtual('url').get(function (){
-    return slugify(this.name, { lower: true, replacement: '_' });
+    return `category/${slugify(this.name, { lower: true, replacement: '_' })}`;
 })
 
 const categoryModel = mongoose.model('Category', categorySchema);

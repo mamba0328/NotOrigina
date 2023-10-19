@@ -1,19 +1,19 @@
-extends layout
+extends ../layout
 
 block content
     div.d-flex.align-items-center.gap-3
         h1=title
         a.text-success(href=`/item/create?category=${category._id}`) Create new Item
-        a.text-danger(href=`/category/delete/${category._id}`) Delete
+        a.text-danger(href=`/category/${category._id}/delete`) Delete
     if(error)
         p.text-danger=error.msg
     ul.container.pt-3.list-unstyled
         each item in categoryItems
-            li.row.border-bottom.pb-2
-                a.row.text-decoration-none(href=`${category.url}/${item.url}`)
+            li.row.border-bottom.py-2
+                a.row.text-decoration-none(href=`/${item.url}`)
                     div.col-2
                         img(src=item.imgPath onerror="if (this.src != '/images/fallback.webp') this.src = '/images/fallback.webp'" alt="item image").item__image
                     div.col-10
                         h4.text-dark=item.name
-                        h6.text-dark=item.lowestPrice + '$'
+                        h6.text-dark=`${item.lowestPrice ? item.lowestPrice + '$' : 'Out of stock'}`
 

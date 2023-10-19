@@ -11,6 +11,7 @@ const connectMongoDB = require('./middleware/connectMongoDB');
 var indexRouter = require('./routes/index');
 const homeRouter = require('./routes/home');
 const categoriesRouter = require('./routes/categories');
+const itemRouter = require('./routes/item');
 
 var app = express();
 
@@ -27,10 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(connectMongoDB);
 app.use(fetchCategories);
 
-
+app.use('/', indexRouter);
 app.use('/home', homeRouter);
 app.use('/', categoriesRouter);
-app.use('/', indexRouter);
+app.use('/', itemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

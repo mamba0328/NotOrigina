@@ -17,11 +17,11 @@ const categoriesController = {
             next(error);
         }
 
-        res.render('category', {title: category.name, currentCategory:category.name, category, categoryItems})
+        res.render('category/category', {title: category.name, currentCategory:category.name, category, categoryItems})
     }),
 
     createGET: asyncHandler(async (req, res, next) => {
-        res.render('categoryForm', {title:'Create Category'})
+        res.render('category/categoryForm', {title:'Create Category'})
     }),
 
     createPOST: [
@@ -35,7 +35,7 @@ const categoriesController = {
             const result = validationResult(req);
             const errors = result.errors;
             if(errors.length){
-                res.render('categoryForm', {title:'Create Category', name, description, errors})
+                res.render('category/categoryForm', {title:'Create Category', name, description, errors})
             }
 
             const caseInsensitiveCategoryName = { $regex: new RegExp("^" + name.toLowerCase(), "i")};
@@ -60,7 +60,7 @@ const categoriesController = {
                 const error = {
                     msg: 'You need to delete all items first'
                 }
-                return res.render('category', {title: category.name, currentCategory:category.name, category, categoryItems, error})
+                return res.render('category/category', {title: category.name, currentCategory:category.name, category, categoryItems, error})
             }
 
             await Category.findByIdAndDelete(id);
