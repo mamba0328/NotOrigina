@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+    form.col-6.mx-auto(method='POST', action='#')
+        div(class="form-group mb-2")
+            label(for="item") Instance item
+            select(class="form-select" aria-label="Default select example" id="item" disabled)
+                each item in items
+                    option(value=item._id selected=(item._id.toString() === selectedItem._id.toString() ? 'selected' : false))=item.name
+            input(type='hidden' name='item' value=selectedItem._id)
+        div(class="form-group mb-2")
+            label(for="size") Instance size
+            input(type="text" value=(instance ? instance.size   : '')  class="form-control" id="size" aria-describedby="size" placeholder="Enter size" name='size')
+        div(class="form-group mb-2")
+            label(for="price") Instance price
+            input(type="text" value=(instance ? instance.price   : '')  class="form-control" id="price" aria-describedby="price" placeholder="Enter price" name='price')
+        div(class="form-group mb-2")
+            label(for="in-stock") Instance in-stock
+            input(type="number" value=(instance ? instance.number_in_stock  : '')  class="form-control" id="in-stock" placeholder='0' aria-describedby="in-stock" name='inStock')
+
+        button(type="submit" class="btn btn-primary") Create item
+
+        if(errors)
+            ul
+                each error in errors
+                    li.text-danger=error.msg

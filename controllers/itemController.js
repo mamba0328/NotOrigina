@@ -9,11 +9,10 @@ const itemController = {
     get: asyncHandler(async (req, res, next) => {
         const name = req.params.item.replaceAll('_', ' ');
         const caseInsensitiveItemName = { $regex: new RegExp("^" + name, "i")};
-        console.log(caseInsensitiveItemName)
+
         const item = await Item.findOne({ name: caseInsensitiveItemName }).populate('category');
         const iteminstances = await Iteminstance.find({item:item.id},).populate('item').exec();
-        const choosenIteminstance = iteminstances.find(instance => instance.size === req.query.size) ?? null;
-
+        const choosenIteminstance = iteminstances.find(instance => instance.size === req.params.size) ?? null;
         if(item === null){
             res.render('item/item', {title:'No such item'});
         }
@@ -64,7 +63,7 @@ const itemController = {
         const name = req.params.item.replaceAll('_', ' ');
         const caseInsensitiveItemName = { $regex: new RegExp("^" + name, "i")};
         const item = await Item.findOne({name: caseInsensitiveItemName}).populate('category');
-        console.log(name, item)
+
         const iteminstances = await Iteminstance.find({item: item._id});
 
         if(iteminstances.length){

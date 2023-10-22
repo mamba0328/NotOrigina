@@ -9,8 +9,7 @@ const itemInstanceSchema = new Schema({
 })
 
 itemInstanceSchema.virtual('url').get(function () {
-    const encodedSize = encodeURIComponent(this.size);
-    return `${this.item.url}?size=${encodedSize}`;
+    return `${this.item.url}/${this.size}`;
 });
 
 const iteminstanceModel = mongoose.model('Iteminstance', itemInstanceSchema);

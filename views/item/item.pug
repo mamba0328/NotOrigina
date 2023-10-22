@@ -8,11 +8,15 @@ block content
             div.col-6
                 div.row
                     h4.col=item.name
-                    a.col.text-danger(href=`/${item.url}/delete`) Delete item
+                    a.col.text-success(href=`/${item.url}/create-instance`) Create iteminstance
+                    if(choosenIteminstance)
+                        a.col.text-danger(href=`/${choosenIteminstance.url}/delete`) Delete iteminstance
+                    else
+                        a.col.text-danger(href=`/${item.url}/delete`) Delete item
                 p=item.description
                 div(class="btn-group mb-3" role="group" aria-label="Basic example")
                     each iteminstance in iteminstances
-                        a(href=`/${item.url}/?size=${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
+                        a(href=`/${item.url}/${iteminstance.size}` class=`btn btn-primary ${choosenIteminstance && choosenIteminstance.size === iteminstance.size && 'active'}` aria-current="page")=iteminstance.size
                 if(choosenIteminstance)
                     div.row
                         h5.col-5=`${choosenIteminstance.price}$`
